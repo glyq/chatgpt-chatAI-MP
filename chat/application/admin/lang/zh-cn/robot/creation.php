@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'User_id'        => '用户id',
+    'Session_id'     => '会话id',
+    'Channel_id'     => '应用id',
+    'Model_id'       => '模型id',
+    'Assistant_id'   => '助手id',
+    'Content'        => 'prompt',
+    'Msg'            => '生成内容',
+    'Input'          => '提问内容',
+    'Ip'             => 'ip地址',
+    'Model'          => '语言模型',
+    'Tokens'         => '使用tokens数量',
+    'Time'           => '生成使用时间（秒）',
+    'Stream'         => '生成方式',
+    'Stream 2'       => '流式',
+    'Stream 1'       => '非流式',
+    'Rate'           => '评分',
+    'Rate 0'         => '0',
+    'Rate 1'         => '1',
+    'Rate 2'         => '2',
+    'Rate 3'         => '3',
+    'Rate 4'         => '4',
+    'Rate 5'         => '5',
+    'Platform'       => '来源',
+    'Platform wx'    => '微信小程序',
+    'Platform pc'    => 'pc端',
+    'Createtime'     => '创建时间',
+    'Updatetime'     => '修改时间',
+    'Channel.name'   => '应用名称',
+    'Assistant.name' => '助手名称'
+];

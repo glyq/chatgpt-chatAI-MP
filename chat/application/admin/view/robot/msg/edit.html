@@ -1,0 +1,71 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('应用名称')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select disabled id="c-channel_id" data-rule="required" class="form-control selectpicker" name="row[channel_id]">
+                {foreach name="channelIdList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.channel_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" data-rule="required,length(~10)" class="form-control" name="row[name]" type="text" value="{$row.name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Msg')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-msg" data-rule="required,length(~100)" class="form-control" name="row[msg]" type="text" value="{$row.msg|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Appid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-appid" data-rule="length(~32)" placeholder="填写跳转其他小程序，留空不跳转" class="form-control" name="row[appid]" type="text" value="{$row.appid|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Path')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-path" data-rule="length(~128)" placeholder="填写跳转其他或本小程序页面，留空不跳转"  class="form-control" name="row[path]" type="text" value="{$row.path|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Position')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-position" data-rule="required" class="form-control selectpicker" name="row[position]">
+                {foreach name="positionList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.position"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+            {foreach name="statusList" item="vo"}
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="$row.status"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>

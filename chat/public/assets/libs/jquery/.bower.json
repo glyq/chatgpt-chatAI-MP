@@ -1,0 +1,25 @@
+{
+  "name": "jquery",
+  "main": "dist/jquery.js",
+  "license": "MIT",
+  "ignore": [
+    "package.json"
+  ],
+  "keywords": [
+    "jquery",
+    "javascript",
+    "browser",
+    "library"
+  ],
+  "homepage": "https://github.com/jquery/jquery-dist",
+  "version": "3.7.0",
+  "_release": "3.7.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.7.0",
+    "commit": "b755b3e9ab895aed7f409ec48a1349f5b185f55f"
+  },
+  "_source": "https://github.com/jquery/jquery-dist.git",
+  "_target": "^3.7.0",
+  "_originalSource": "jquery"
+}

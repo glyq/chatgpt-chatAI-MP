@@ -1,0 +1,123 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('User_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-user_id" data-rule="required" data-source="user/user/index" data-field="nickname" class="form-control selectpage" name="row[user_id]" type="text" value="{$row.user_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Session_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-session_id" data-rule="required" data-source="session/index" class="form-control selectpage" name="row[session_id]" type="text" value="{$row.session_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Channel_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-channel_id" data-rule="required" class="form-control selectpicker" name="row[channel_id]">
+                {foreach name="channelIdList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.channel_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Model_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-model_id" data-rule="required" data-source="model/index" class="form-control selectpage" name="row[model_id]" type="text" value="{$row.model_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Assistant_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-assistant_id" data-rule="required" data-source="assistant/index" class="form-control selectpage" name="row[assistant_id]" type="text" value="{$row.assistant_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Content')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-content" data-rule="required" class="form-control editor" rows="5" name="row[content]" cols="50">{$row.content|htmlentities}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Msg')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-msg" data-rule="required" class="form-control " rows="5" name="row[msg]" cols="50">{$row.msg|htmlentities}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Input')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-input" data-rule="required" class="form-control " rows="5" name="row[input]" cols="50">{$row.input|htmlentities}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Ip')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-ip" data-rule="required" class="form-control" name="row[ip]" type="text" value="{$row.ip|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Model')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-model" data-rule="required" class="form-control" name="row[model]" type="text" value="{$row.model|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Tokens')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-tokens" data-rule="required" class="form-control" name="row[tokens]" type="number" value="{$row.tokens|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[time]" type="text" value="{:$row.time?datetime($row.time):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Stream')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-stream" data-rule="required" class="form-control selectpicker" name="row[stream]">
+                {foreach name="streamList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.stream"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Rate')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-rate" data-rule="required" class="form-control selectpicker" name="row[rate]">
+                {foreach name="rateList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.rate"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Platform')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-platform" class="form-control selectpicker" name="row[platform]">
+                {foreach name="platformList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.platform"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>

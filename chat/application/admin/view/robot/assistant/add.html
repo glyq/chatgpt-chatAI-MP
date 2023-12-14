@@ -1,0 +1,121 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" data-rule="required,length(~7)" class="form-control" name="row[name]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Cate_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-cate_id" data-rule="required" data-params='{"custom[status]":"1"}' data-source="robot/cate/index" class="form-control selectpage" name="row[cate_id]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Desc')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-desc" data-rule="required,length(~9)" class="form-control" name="row[desc]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Icon')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-icon" data-rule="required" class="form-control" size="50" name="row[icon]" type="text">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-icon" class="btn btn-danger faupload" data-input-id="c-icon" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp,image/webp" data-multiple="false" data-preview-id="p-icon"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-icon" class="btn btn-primary fachoose" data-input-id="c-icon" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-icon"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-icon"></ul>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('prompt设置')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <table class="table fieldlist" data-template="basictpl" data-name="row[keywords]" id="first-table">
+                <tr>
+                    <td>{:__('标签')}</td>
+                    <td>{:__('标题')}</td>
+                    <td>{:__('输入类型')}</td>
+                    <td>{:__('默认值')}</td>
+                    <td>{:__('提示语')}</td>
+                    <td>{:__('是否必填')}</td>
+                    <td width="100"></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i class="fa fa-plus"></i> {:__('Append')}</a></td>
+                </tr>
+            </table>
+
+            <!--请注意实际开发中textarea应该添加个hidden进行隐藏-->
+            <textarea style="display: none" name="row[keywords]"  class="form-control" cols="30" rows="5"></textarea>
+            <script id="basictpl" type="text/html">
+                <tr class="form-inline">
+                    <td><input type="text" readonly data-rule="required length(0~10)" name="<%=name%>[<%=index%>][tag]" class="form-control " size="7" value="keyword<%=index+1%>" placeholder="标签"/></td>
+                    <td><input type="text" data-rule="required length(0~6)"  name="<%=name%>[<%=index%>][title]" class="form-control " size="7" value="<%=row.title%>" placeholder="标题"/></td>
+
+                    <td><input type="text" data-rule="required" name="<%=name%>[<%=index%>][type]" size="8" class="form-control selectpage" data-source='[{"id":"input","title":"文本框"},{"id":"textarea","title":"文本区"},{"id":"slider","title":"纯数字"}]' data-field="title"  placeholder="输入类型"/></td>
+
+                    <td><input type="text" data-rule="length(~50)" name="<%=name%>[<%=index%>][val]" class="form-control" size="15" value="<%=row.val%>" placeholder="默认值"/></td>
+
+                    <td><input type="text" data-rule="length(~50)" name="<%=name%>[<%=index%>][default]" class="form-control" size="15" value="<%=row.default%>" placeholder="提示语"/></td>
+                    <td>
+                        <input type="hidden" name="<%=name%>[<%=index%>][require]" id="c-state-<%=index%>" class="form-control" style="width:50px" value="1" placeholder="是否必填"/>
+                        <a href="javascript:;" data-toggle="switcher" class="btn-switcher" data-input-id="c-state-<%=index%>" data-yes="1" data-no="0" >
+                            <i class="fa fa-toggle-on text-success <%if(row.require==0){%>fa-flip-horizontal text-gray<%}%> fa-2x"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <!--下面的两个按钮务必保留-->
+                        <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                        <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+
+                    </td>
+                </tr>
+            </script>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('prompt')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-template" data-rule="required" class="form-control " rows="5" name="row[template]" cols="50"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+            {foreach name="statusList" item="vo"}
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="0"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Appid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input placeholder="填写后跳转其他小程序" id="c-appid" data-rule="length(~32)" class="form-control" name="row[appid]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Apppath')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input placeholder="填写后跳转其他小程序" id="c-apppath" data-rule="length(~255)" class="form-control" name="row[apppath]" type="text">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>

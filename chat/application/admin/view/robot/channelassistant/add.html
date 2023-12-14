@@ -1,0 +1,19 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('助手名称')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-assistant_id" data-multiple="true" data-page-size="30" data-format-item="{name} - {desc}" data-rule="required" data-params={"custom[status]":"1","custom[channel_id]":"{$_REQUEST['channel_id']}"{$_REQUEST['cate_id']?",\\"custom[cate_id]\\":$_REQUEST[cate_id]":''}} data-source="robot/assistant/index" class="form-control selectpage" name="row[assistant_id]" type="text" value="">
+        </div>
+    </div>
+
+    <input style="display: none" type="text" name="row[channel_id]" value="{$_REQUEST['channel_id']}">
+
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>
