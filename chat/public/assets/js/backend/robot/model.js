@@ -30,7 +30,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     [
                         {checkbox: true},
                         {field: 'id', title: __('Id')},
-                        {field: 'company', title: __('Company'), searchList: {"Wenxin":__('百度'),"Ali":__('阿里'),"Xunfei":__('科大讯飞'),"Ai360":__('360智脑'),"Chatglm":__('智谱ai')}, formatter: Table.api.formatter.normal},
+                        {field: 'company', title: __('Company'), searchList: {"Wenxin":__('百度'),"Ali":__('阿里'),"Xunfei":__('科大讯飞'),"Ai360":__('360智脑'),"Chatglm":__('智谱ai'),"Chatgpt":__('OpenAi')}, formatter: Table.api.formatter.normal},
                         {field: 'model_tag', title: __('Model_tag'), operate: 'LIKE', formatter: Table.api.formatter.label},
                         {field: 'status', title: __('Status'), searchList: {"0":__('Status 0'),"1":__('Status 1')}, formatter: Table.api.formatter.toggle},
                         {field: 'createtime', title: __('Createtime'), operate: false, addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
@@ -103,6 +103,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 break;
             case 'Ali':
             case 'Ai360':
+            case 'Chatgpt':
                 $('#c-authorization').parent().parent().show();
                 $('#c-authorization').parent().prev().html('API-KEY');
                 $('#c-authorization').attr('data-rule','required,length(~128)')

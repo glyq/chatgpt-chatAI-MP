@@ -205,8 +205,22 @@ notify_url = https://你的API域名.com/callback/buySuccess
 
 * uniapp/util/wxpay/config.js 配置商户号和支付秘钥（同上一步的mch_id,key）
 
-
-
+#### chatgpt模型使用（2种方式）
+openai 当前屏蔽了中国大陆、香港、澳门地区的直接访问
+1. 方式一：api程序直接部署在海外服务器（缺点：导致接口访问缓慢，小程序卡顿）
+2. 方式二：使用nginx反向代理
+*  购买一台海外服务器（openai接口没有限制的地区），可以是最初级的配置，并安装宝塔+nginx
+* 准备一个反向代理域名绑定到这个海外服务器，使用宝塔建立一个纯静态网站，例如：openai.xxx.com
+  <img src="image/bt.png"/>
+* 新增站点后点击这个站点，配置ssl，使反向代理域名可以使用https访问，开启强制HTTPS
+* 点击站点配置中的反向代理，添加openai的接口地址为目标URL
+  <img src="image/dl.png"/>
+* 修改反向代理配置文件，添加： proxy_ssl_server_name on;
+  <img src="image/dlcf.png"/>
+* 反向代理已配置完成，后台使用openai时，把openai的接口地址域名替换成反向代理域名即可
+* 后台模型管理中api地址未填写时默认为https://api.openai.com/v1/chat/completions，只有部署在海外服务器才能使用。
+* 后台模型管理中api地址的域名替换成反向代理域名即可满足程序不部署在海外也能使用openai接口
+  <img src="image/model.png"/>
 ### 版权声明
 1. 允许用于个人学习、毕业设计、教学案例、公益事业。
 2. 开源版使用必须保留版权信息，请自觉遵守。

@@ -27,7 +27,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {checkbox: true},
                         {field: 'id', title: __('Id'),visible:false,operate:false},
                         {field: 'channel_id', title: __('应用id'),visible:false,},
-                        {field: 'model.company', searchList: {"Wenxin":__('百度'),"Ali":__('阿里'),"Xunfei":__('科大讯飞'),"Ai360":__('360智脑'),"Chatglm":__('智谱ai')},title: __('Model.company'),formatter: Table.api.formatter.normal},
+                        {field: 'model.company', searchList: {"Wenxin":__('百度'),"Ali":__('阿里'),"Xunfei":__('科大讯飞'),"Ai360":__('360智脑'),"Chatglm":__('智谱ai'),"Chatgpt":__('OpenAi')},title: __('Model.company'),formatter: Table.api.formatter.normal},
                         {field: 'model.model_tag', title: __('Model.model_tag'), operate: 'LIKE', formatter: Table.api.formatter.flag},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
