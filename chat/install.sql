@@ -449,7 +449,7 @@ CREATE TABLE `ai_robot_help`  (
 DROP TABLE IF EXISTS `ai_robot_model`;
 CREATE TABLE `ai_robot_model`  (
    `id` int NOT NULL AUTO_INCREMENT,
-   `company` enum('Wenxin','Ali','Xunfei','Ai360','Chatglm','Chatgpt') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模型厂商',
+   `company` enum('Wenxin','Ali','Xunfei','Ai360','Chatglm','Chatgpt','Api2d') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模型厂商',
    `model_tag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模型名称',
    `model_class` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模型类名称',
    `appkey` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'appkey',

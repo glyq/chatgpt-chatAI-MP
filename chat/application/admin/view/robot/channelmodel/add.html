@@ -9,7 +9,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('模型名称')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-model_id" data-multiple="true" data-rule="required" data-field="model_tag" data-params={"custom[status]":"1","custom[channel_id]":"{$_REQUEST['channel_id']}"} data-source="robot/model/index" class="form-control selectpage" name="row[model_id]" type="text" value="">
+            <input id="c-model_id" data-multiple="true" data-rule="required" data-format-item="{company} - {model_tag}" data-field="model_tag" data-params={"custom[status]":"1","custom[channel_id]":"{$_REQUEST['channel_id']}"} data-source="robot/model/index" class="form-control selectpage" name="row[model_id]" type="text" value="">
         </div>
     </div>
 

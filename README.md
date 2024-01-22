@@ -1,6 +1,6 @@
 ## chatAI-MP(AI助手智能问答系统)
 ### 介绍
-chatgpt问答微信小程序，chatAI-MP是基于TP5+Uniapp+VUE开发，基于各大AI大语言模型API实现的AI助手开源解决方案，已集成ChatGPT，文心一言、通义千问、360智脑、ChatGLM（清华旗下）、讯飞星火等人工智能技术，开源版支持PC、微信小程序等多端，微信接口安全审核机制。部署后即为SAAS系统，可无限搭建小程序、PC平台。
+chatgpt问答微信小程序，chatAI-MP是基于TP5+Uniapp+VUE开发，基于各大AI大语言模型API实现的AI助手开源解决方案，已集成ChatGPT，Api2d，文心一言、通义千问、360智脑、ChatGLM（清华旗下）、讯飞星火等人工智能技术，开源版支持PC、微信小程序等多端，微信接口安全审核机制。部署后即为SAAS系统，可无限搭建小程序、PC平台。
 **开源版禁止商用，仅供学习交流，禁止倒卖。** 感谢Star！[获取升级版](https://item.taobao.com/item.htm?spm=a21dvs.23580594.0.0.3c3a645eVrH74k&ft=t&id=754828856436)
 
 Github地址：https://github.com/glyq/chatgpt-chatAI-MP
@@ -15,14 +15,14 @@ PC端演示地址：https://wenan.zwzhk.com/
 
 ### 功能特性
 * 完整的开源系统，前端应用和后台管理系统皆可开箱即用。
-* 开源版支持 文心一言，升级版支持ChatGPT，讯飞星火，清华 ChatGLM，通义千问，360智脑等多个大语言模型。
+* 开源版支持 文心一言，升级版支持ChatGPT，讯飞星火，清华 ChatGLM，通义千问，360智脑，Api2d等多个大语言模型。
 * 购买功能支持微信支付、yungouos支付集成。
 * 系统底层为SAAS，部署后可无限开账号，无限搭建。
 * 支持一次性回复、流式回复等。
 
 ### 开源说明
 * 开源版：后端无加密、Uniapp端完全开源、PC端完全开源，集成模型只支持文心一言，**禁止去除小程序我的页面版权及版权跳转链接，开源版禁止商用，仅供学习交流，禁止倒卖。**
-* 升级版：后端无加密、Uniapp端完全开源、PC端完全开源，集成模型支持ChatGPT，文心一言，讯飞星火，清华 ChatGLM，通义千问，360智脑等，可以去除版权商用。[点这里获取升级版](https://item.taobao.com/item.htm?spm=a21dvs.23580594.0.0.3c3a645eVrH74k&ft=t&id=754828856436)
+* 升级版：后端无加密、Uniapp端完全开源、PC端完全开源，集成模型支持ChatGPT，文心一言，讯飞星火，清华 ChatGLM，通义千问，360智脑，Api2d等，可以去除版权商用。[点这里获取升级版](https://item.taobao.com/item.htm?spm=a21dvs.23580594.0.0.3c3a645eVrH74k&ft=t&id=754828856436)
 ### 运行环境
 ```
 nginx

@@ -17,6 +17,7 @@ class Model extends Backend
      * @var \app\common\model\robot\Models
      */
     protected $model = null;
+    protected $selectpageFields = ['id','model_tag','company',];
 
     public function _initialize()
     {
