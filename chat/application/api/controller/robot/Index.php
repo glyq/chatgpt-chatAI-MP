@@ -42,6 +42,9 @@ class Index extends Base
     {
         $data['name'] = $this->channel['name'];
         $data['desc'] = $this->channel['desc'];
+        $data['stream'] = (int)$this->channel['stream'];
+        $data['stream_show'] = (int)$this->channel['show_stream'];
+        $data['stream_default'] = $this->channel['stream_default'] ? true : false;
         $this->response(0, $data);
     }
 

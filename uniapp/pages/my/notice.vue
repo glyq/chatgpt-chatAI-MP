@@ -32,7 +32,7 @@
 		},
 		onLoad(options){
 			uni.setNavigationBarTitle({
-				title:uni.getStorageSync('project_title')
+				title:uni.getStorageSync('channel_info').name
 			})
 			this.getNotice(options.id)
 			

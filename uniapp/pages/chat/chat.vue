@@ -57,7 +57,6 @@
 				list : '',
 				assistant:'',
 				ad:uni.getStorageSync('ad'),
-				close1:false,
 				socketMsgQueue : [],
 				cdnUrl:this.$config.cdnUrl,
 				adVideo: this.$config.adVideo
@@ -67,7 +66,7 @@
 		},
 		onLoad(options){
 			uni.setNavigationBarTitle({
-				title:uni.getStorageSync('project_title')
+				title:uni.getStorageSync('channel_info').name
 			})
 			this.stream = options.stream;
 			this.assistant = options.assistant;

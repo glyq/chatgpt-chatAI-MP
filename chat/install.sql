@@ -320,24 +320,25 @@ CREATE TABLE `ai_robot_cate`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `ai_robot_channel`;
 CREATE TABLE `ai_robot_channel`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '应用名称',
-  `appkey` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '应用appkey',
-  `appsecret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '应用appsecret',
-  `stream` enum('1','2') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '输出方式:2=流式输出,1=非流式输出',
-  `free_num` int NOT NULL COMMENT '每日免费次数',
-  `third_appkey` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信小程序appkey',
-  `third_appsecret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信小程序appsecret',
-  `status` int NOT NULL COMMENT '状态:0=禁用,1=正常',
-  `show_stream` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否显示输出方式选择按钮:1=显示,0=不显示',
-  `stream_default` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流式输出按钮默认状态:1=开启,0=关闭',
-  `show_ad` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信小程序是否显示广告:1=显示,0=不显示',
-  `show_vip` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信小程序是否显示VIP:1=显示,0=不显示',
-  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '应用简介',
-  `createtime` bigint NULL DEFAULT NULL COMMENT '创建时间',
-  `updatetime` bigint NULL DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '渠道应用' ROW_FORMAT = DYNAMIC;
+ `id` int NOT NULL AUTO_INCREMENT,
+ `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '应用名称',
+ `appkey` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '应用appkey',
+ `appsecret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '应用appsecret',
+ `stream` enum('1','2') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '输出方式:2=流式输出,1=非流式输出',
+ `free_num` int NOT NULL COMMENT '每日免费次数',
+ `third_appkey` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信小程序appkey',
+ `third_appsecret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信小程序appsecret',
+ `status` int NOT NULL COMMENT '状态:0=禁用,1=正常',
+ `show_stream` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否显示输出方式选择按钮:1=显示,0=不显示',
+ `stream_default` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流式输出按钮默认状态:1=开启,0=关闭',
+ `show_ad` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信小程序是否显示广告:1=显示,0=不显示',
+ `show_vip` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信小程序是否显示VIP:1=显示,0=不显示',
+ `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '应用简介',
+ `multiple` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '对话上下文记忆:1=开启,0=关闭',
+ `createtime` bigint NULL DEFAULT NULL COMMENT '创建时间',
+ `updatetime` bigint NULL DEFAULT NULL COMMENT '修改时间',
+ PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '渠道应用' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for ai_robot_channel_assistant

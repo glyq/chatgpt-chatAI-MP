@@ -38,13 +38,13 @@
 				
 				code: "",
 				cdnUrl:this.$config.cdnUrl,
-				title:uni.getStorageSync('project_title')
+				title:uni.getStorageSync('channel_info').name
 				
 			}
 		},
 		onShow() {
 			uni.setNavigationBarTitle({
-				title:uni.getStorageSync('project_title')
+				title:uni.getStorageSync('channel_info').name
 			})
 		},
 		methods: {

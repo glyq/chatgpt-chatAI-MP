@@ -2,13 +2,17 @@
 
 namespace app\api\controller\robot;
 
+use app\api\library\robot\WeChat;
 use app\common\controller\Api;
+use app\common\model\robot\Channelmodel;
 use app\common\model\robot\Creation;
+use app\common\model\robot\User;
 use think\Cache;
 use app\common\model\robot\Channel;
 use app\common\model\robot\Usertoken;
 use app\common\model\robot\Vip;
 use PHPMailer\PHPMailer\PHPMailer;
+use think\Db;
 
 
 class Base extends Api
@@ -102,7 +106,7 @@ class Base extends Api
     {
         $day = date('Ymd');
         $cacheKey = $key . $day . $this->uid;
-        $dayNum = Cache::tag('robot')->get($cacheKey);
+        $dayNum = Cache::get($cacheKey);
         return $dayNum ?: 0;
     }
 
@@ -111,7 +115,7 @@ class Base extends Api
         $dayNum = $this->_getTodayNums($key);
         $day = date('Ymd');
         $cacheKey = $key . $day . $this->uid;
-        return Cache::tag('robot')->set($cacheKey, $dayNum + $addNum, 86400);
+        return Cache::set($cacheKey, $dayNum + $addNum, 86400);
     }
 
     protected function _getUserNums()
@@ -184,6 +188,8 @@ class Base extends Api
             4001 => '支付参数错误',
             4002 => '支付参数错误',
             5001 => '观看次数已超限',
+            6001 => '已经是新话题了，继续聊吧',
+            6002 => '输入字数超限，最多输入500字',
         ];
         if (!$msg) {
             $msg = $message[$code];
@@ -194,6 +200,161 @@ class Base extends Api
         return json_encode($data);
 
     }
+
+    /**
+     * 检查prompt合法性
+     */
+    protected function _checkPrompt($prompt)
+    {
+        $model = new User();
+        $userInfo = $model->getUserInfo($this->uid);
+        $openid = $userInfo['openid'];
+        $wechat = new WeChat();
+
+        if (!$openid) {
+            return true;
+        }
+
+        $res = $wechat->msgSecCheck($prompt, $openid, $this->channel);
+        if ($res != 100) {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * 判断是否有生成次数
+     */
+    protected function _limit()
+    {
+        $model = new Vip();
+        $vip = $model->getInfo($this->uid);
+        if (isset($vip['num']) && $vip['num'] > 0) {
+            return true;
+        }
+        $dayVipNum = $this->_getTodayNums('today_vip_num');
+        $dayNum = $this->_getTodayNums('day_limit');
+        $num = $this->channel['free_num'];
+        $shareNum = $this->_getTodayNums('share_limit');
+        $adNum = $this->_getTodayNums('ad_limit');
+        if (($dayNum - $dayVipNum) >= ($num + $shareNum + $adNum)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 按序使用模型生成，如生成失败更换下一个
+     */
+    protected function _create($prompt,$sessionId, $stream = 1, $connection = '')
+    {
+
+        $model = new Channelmodel();
+        $models = $model->getModelListByChannel($this->channel['id']);
+        $models = array_slice($models, 0, 4);
+
+        $res = [];
+        $content = [];
+        if($this->channel['multiple']){
+            $map['user_id'] = $this->uid;
+            $map['session_id'] = $sessionId;
+            $map['assistant_id'] = 0;
+            $history = Db::name('robot_creation')->where($map)->order('id asc')->limit(2)->select();
+            foreach ($history as $k=>$v){
+                if($v['content'] && $v['msg']){
+                    $content[] = ['role'=>'user','content'=>$v['content']];
+                    $content[] = ['role'=>'assistant','content'=>$v['msg']];
+                }
+            }
+        }
+        $content[] = ['role' => 'user', 'content' => $prompt];
+
+        foreach ($models as $k => $model) {
+            $time = time();
+            $param['model'] = $model['model_tag'];
+            $param['temperature'] = $model['temperature'];
+            $param['contents'] = $content;
+            $channel = $this->_getChannelClass($model['model_class']);
+            if ($stream == 2) {
+                $res = $channel->chatStream($param, $model, $connection);
+            } else {
+                $res = $channel->chat($param, $model);
+            }
+
+
+            if ($res['code'] == 0) {
+                $res['time'] = time() - $time;
+                $res['model_id'] = $model['id'];
+                break;
+            }
+
+            try {
+                $error['channel'] = $this->channel['name'];
+                $error['model'] = $model['model_tag'];
+                $error['user_id'] = $this->uid;
+                $error['prompt'] = $prompt;
+                $error['code'] = $res['code'];
+                $error['msg'] = $res['msg'];
+                $error['stream'] = $stream;
+                $error['created_date'] = date('Y-m-d H:i:s');
+                Db::name('robot_error_log')->insert($error);
+            } catch (\Exception $e) {
+
+            }
+        }
+        return $res;
+    }
+
+
+
+    /**
+     * 新增对话
+     */
+    protected function _insertCreation($prompt, $input, $messageData, $sessionId, $assistantId, $stream, $platform)
+    {
+        $data['user_id'] = $this->uid;
+        $data['session_id'] = $sessionId;
+        $data['channel_id'] = $this->channel['id'];
+        $data['model_id'] = isset($messageData['model_id']) ? $messageData['model_id'] : 0;
+        $data['assistant_id'] = $assistantId;
+        $data['content'] = $prompt;
+        $data['input'] = $input;
+        $data['stream'] = $stream;
+        $data['msg'] = isset($messageData['data']) ? $messageData['data'] : '';
+        $data['model'] = isset($messageData['model']) ? $messageData['model'] : '';
+        $data['tokens'] = isset($messageData['tokens']) ? $messageData['tokens'] : 0;
+        $data['ip'] = request()->ip();
+        $data['platform'] = $platform;
+        $data['time'] = isset($messageData['time']) ? $messageData['time'] : 0;
+        $data['updatetime'] = $data['createtime'] = time();
+        Creation::insert($data);
+        $data['id'] = Creation::getLastInsID();
+        return $data['id'];
+    }
+
+
+
+
+    /**
+     * 使用生成次数
+     */
+    protected function _setLimit()
+    {
+        $dayVipNum = $this->_getTodayNums('today_vip_num');
+        $dayNum = $this->_getTodayNums('day_limit');
+        $num = $this->channel['free_num'];
+        $shareNum = $this->_getTodayNums('share_limit');
+        $adNum = $this->_getTodayNums('ad_limit');
+
+        if (($dayNum - $dayVipNum) > ($num + $shareNum + $adNum)) {
+            $this->_setTodayNums('today_vip_num');
+            $model = new Vip();
+            $model->useNum($this->uid);
+        }
+        return true;
+    }
+
 
 
 }

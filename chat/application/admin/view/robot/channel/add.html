@@ -21,10 +21,10 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Stream')}:</label>
         <div class="col-xs-12 col-sm-8">
-                        
+
             <select  id="c-stream" data-rule="required" class="form-control selectpicker" name="row[stream]">
                 {foreach name="streamList" item="vo"}
-                    <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
                 {/foreach}
             </select>
 
@@ -51,11 +51,11 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
         <div class="col-xs-12 col-sm-8">
-            
+
             <div class="radio">
-            {foreach name="statusList" item="vo"}
-            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="0"}checked{/in} /> {$vo}</label> 
-            {/foreach}
+                {foreach name="statusList" item="vo"}
+                <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="0"}checked{/in} /> {$vo}</label>
+                {/foreach}
             </div>
 
         </div>
@@ -63,10 +63,10 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Show_stream')}:</label>
         <div class="col-xs-12 col-sm-8">
-                        
+
             <select  id="c-show_stream" data-rule="required" class="form-control selectpicker" name="row[show_stream]">
                 {foreach name="showStreamList" item="vo"}
-                    <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
                 {/foreach}
             </select>
 
@@ -75,10 +75,10 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Stream_default')}:</label>
         <div class="col-xs-12 col-sm-8">
-                        
+
             <select  id="c-stream_default" data-rule="required" class="form-control selectpicker" name="row[stream_default]">
                 {foreach name="streamDefaultList" item="vo"}
-                    <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
                 {/foreach}
             </select>
 
@@ -87,10 +87,10 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Show_ad')}:</label>
         <div class="col-xs-12 col-sm-8">
-                        
+
             <select  id="c-show_ad" data-rule="required" class="form-control selectpicker" name="row[show_ad]">
                 {foreach name="showAdList" item="vo"}
-                    <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
                 {/foreach}
             </select>
 
@@ -99,11 +99,24 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Show_vip')}:</label>
         <div class="col-xs-12 col-sm-8">
-                        
+
             <select  id="c-show_vip" data-rule="required" class="form-control selectpicker" name="row[show_vip]">
                 {foreach name="showVipList" item="vo"}
-                    <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
+                <option value="{$key}" {in name="key" value=""}selected{/in}>{$vo}</option>
                 {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">对话上下文记忆</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <select  data-rule="required" class="form-control selectpicker" name="row[multiple]">
+
+                <option value="1" >开启</option>
+                <option value="0" >关闭</option>
+
             </select>
 
         </div>

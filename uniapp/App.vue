@@ -2,7 +2,7 @@
 	export default {
 		onLaunch: function() {
 			this.$http.requestApi('POST', '/index/getInfo',{showLoading:0}).then(res => {
-				uni.setStorageSync('project_title',res.data.name)
+				uni.setStorageSync('channel_info',res.data);
 			});
 			
 		},

@@ -32,7 +32,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'user_id', title: __('User_id')},
                         {field: 'channel_id', visible:false,title: __('Channel_id'), formatter: Table.api.formatter.normal},
                         {field: 'channel.name', title: __('Channel.name'), operate: false, table: table, class: 'autocontent', formatter: Table.api.formatter.content},
-                        {field: 'assistant.name', title: __('Assistant.name'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
+                        {field: 'assistant.name', title: __('Assistant.name'), operate: 'LIKE', table: table, class: 'autocontent', formatter: function(value, row){var type_name = value == null ? '对话' : value;
+                                return type_name;
+                            }},
                         {field: 'model', title: __('Model'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.tag},
 
                         {field: 'input', title: __('Input'), operate: false, class: 'autocontent', formatter: Table.api.formatter.content},

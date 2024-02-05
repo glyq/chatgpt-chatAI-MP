@@ -228,7 +228,7 @@ class User extends Base
         $pay = new WeChatPay();
         $body = $this->channel['name'] . 'vip';
         $appkey = $this->channel['third_appkey'];
-        $type = 2;
+        $type = 3;
         $res = $pay->getPayOptions($orderId,$openid,$info['price'],$appkey,$body,$type);
 
         $data['type'] = $type;

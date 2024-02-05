@@ -20,13 +20,20 @@
 		}
 	    ,{
             "path" : "pages/chat/chat",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": ""
                 
             }
+
             
-        }
+        },{
+            "path" : "pages/chat/dialog",
+			"style" : {
+				"navigationBarTitleText" : "",
+				"navigationStyle" : "custom"
+			}
+		}
         ,{
             "path" : "pages/assistant/index",
             "style" :                                                                                    
@@ -120,6 +127,12 @@
 			"iconPath": "static/images/create.png",
 			"selectedIconPath": "static/images/creates.png",
 			"text": "创作"
+		},
+		{
+			"pagePath": "pages/chat/dialog",
+			"iconPath": "static/images/chat.png",
+			"selectedIconPath": "static/images/chats.png",
+			"text": "对话"
 		},
 		{
 			"pagePath": "pages/my/my",

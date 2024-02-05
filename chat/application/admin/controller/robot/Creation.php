@@ -5,7 +5,7 @@ namespace app\admin\controller\robot;
 use app\common\controller\Backend;
 
 /**
- * 
+ *
  *
  * @icon fa fa-circle-o
  */
@@ -54,20 +54,24 @@ class Creation extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 
             $list = $this->model
-                    ->with(['channel','assistant'])
-                    ->where($where)
+                ->with(['channel','assistant'])
+                ->where($where)
                 ->where('channel.status','1')
-                    ->order($sort, $order)
-                    ->paginate($limit);
+                ->order($sort, $order)
+                ->paginate($limit);
 
             foreach ($list as $row) {
-                
+
                 $row->getRelation('channel')->visible(['name']);
-				$row->getRelation('assistant')->visible(['name']);
+                $row->getRelation('assistant')->visible(['name']);
                 $inputData = json_decode($row->getData('input'),true);
                 $input = '';
-                foreach ($inputData as $k=>$v){
-                    $input .= $v['title'].':'.$v['val']."\n";
+                if($inputData){
+                    foreach ($inputData as $k=>$v){
+                        $input .= $v['title'].':'.$v['val']."\n";
+                    }
+                }else{
+                    $input = $row->getData('content');
                 }
                 $row->data('input',$input);
             }
@@ -94,8 +98,12 @@ class Creation extends Backend
         $arr = $row->toArray();
         $inputData = json_decode($arr['input'],true);
         $input = '';
-        foreach ($inputData as $k=>$v){
-            $input .= $v['title'].':'.$v['val'];
+        if($inputData){
+            foreach ($inputData as $k=>$v){
+                $input .= $v['title'].':'.$v['val'];
+            }
+        }else{
+            $input = $arr['content'];
         }
         $arr['input'] = $input;
         $arr['stream'] = $arr['stream_text'];

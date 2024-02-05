@@ -87,7 +87,7 @@ class Chat extends Base
 
         if ($stream == 1) {
             try {
-                $messageData = $this->_create($prompt);
+                $messageData = $this->_create($prompt,$session['id']);
                 if (($messageData['code'] != 0) || (!$messageData['data'])) {
                     $this->response(2008);
                 }
@@ -195,7 +195,7 @@ class Chat extends Base
             $this->_setTodayNums('day_limit');
             $this->_setLimit();
 
-            $res = $this->_create($creation['content'], 2, $connection);
+            $res = $this->_create($creation['content'],$creation['session_id'], 2, $connection);
 
             if (($res['code'] != 0) || (!$res['data'])) {
                 $data = $this->_getResponseData(2008);
@@ -335,6 +335,8 @@ class Chat extends Base
         $this->response(0, $data);
     }
 
+
+
     /**
      * 小程序生成记录
      */
@@ -410,140 +412,8 @@ class Chat extends Base
     }
 
 
-    /**
-     * 检查prompt合法性
-     */
-    private function _checkPrompt($prompt)
-    {
-        $model = new User();
-        $userInfo = $model->getUserInfo($this->uid);
-        $openid = $userInfo['openid'];
-        $wechat = new WeChat();
-
-        if (!$openid) {
-            return true;
-        }
-
-        $res = $wechat->msgSecCheck($prompt, $openid, $this->channel);
-        if ($res != 100) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 判断是否有生成次数
-     */
-    private function _limit()
-    {
-        $model = new Vip();
-        $vip = $model->getInfo($this->uid);
-        if (isset($vip['num']) && $vip['num'] > 0) {
-            return true;
-        }
-        $dayVipNum = $this->_getTodayNums('today_vip_num');
-        $dayNum = $this->_getTodayNums('day_limit');
-        $num = $this->channel['free_num'];
-        $shareNum = $this->_getTodayNums('share_limit');
-        $adNum = $this->_getTodayNums('ad_limit');
-        if (($dayNum - $dayVipNum) >= ($num + $shareNum + $adNum)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 使用生成次数
-     */
-    private function _setLimit()
-    {
-        $dayVipNum = $this->_getTodayNums('today_vip_num');
-        $dayNum = $this->_getTodayNums('day_limit');
-        $num = $this->channel['free_num'];
-        $shareNum = $this->_getTodayNums('share_limit');
-        $adNum = $this->_getTodayNums('ad_limit');
-
-        if (($dayNum - $dayVipNum) > ($num + $shareNum + $adNum)) {
-            $this->_setTodayNums('today_vip_num');
-            $model = new Vip();
-            $model->useNum($this->uid);
-        }
-        return true;
-    }
 
 
-    /**
-     * 按序使用模型生成，如生成失败更换下一个
-     */
-    private function _create($prompt, $stream = 1, $connection = '')
-    {
 
-        $model = new Channelmodel();
-        $models = $model->getModelListByChannel($this->channel['id']);
-        $models = array_slice($models, 0, 4);
-
-        $res = [];
-
-        foreach ($models as $k => $model) {
-            $time = time();
-            $param['model'] = $model['model_tag'];
-            $param['temperature'] = $model['temperature'];
-            $content = [['role' => 'user', 'content' => $prompt]];
-            $param['contents'] = $content;
-            $channel = $this->_getChannelClass($model['model_class']);
-            if ($stream == 2) {
-                $res = $channel->chatStream($param, $model, $connection);
-            } else {
-                $res = $channel->chat($param, $model);
-            }
-
-
-            if ($res['code'] == 0) {
-                $res['time'] = time() - $time;
-                $res['model_id'] = $model['id'];
-                break;
-            }
-
-            try {
-                $error['channel'] = $this->channel['name'];
-                $error['model'] = $model['model_tag'];
-                $error['user_id'] = $this->uid;
-                $error['prompt'] = $prompt;
-                $error['code'] = $res['code'];
-                $error['msg'] = $res['msg'];
-                $error['stream'] = $stream;
-                $error['created_date'] = date('Y-m-d H:i:s');
-                Db::name('robot_error_log')->insert($error);
-            } catch (\Exception $e) {
-
-            }
-        }
-        return $res;
-    }
-
-    /**
-     * 新增对话
-     */
-    private function _insertCreation($prompt, $input, $messageData, $sessionId, $assistantId, $stream, $platform)
-    {
-        $data['user_id'] = $this->uid;
-        $data['session_id'] = $sessionId;
-        $data['channel_id'] = $this->channel['id'];
-        $data['model_id'] = isset($messageData['model_id']) ? $messageData['model_id'] : 0;
-        $data['assistant_id'] = $assistantId;
-        $data['content'] = $prompt;
-        $data['input'] = $input;
-        $data['stream'] = $stream;
-        $data['msg'] = isset($messageData['data']) ? $messageData['data'] : '';
-        $data['model'] = isset($messageData['model']) ? $messageData['model'] : '';
-        $data['tokens'] = isset($messageData['tokens']) ? $messageData['tokens'] : 0;
-        $data['ip'] = request()->ip();
-        $data['platform'] = $platform;
-        $data['time'] = isset($messageData['time']) ? $messageData['time'] : 0;
-        $data['updatetime'] = $data['createtime'] = time();
-        Creation::insert($data);
-        $data['id'] = Creation::getLastInsID();
-        return $data['id'];
-    }
 
 }

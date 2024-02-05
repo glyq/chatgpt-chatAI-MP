@@ -120,7 +120,7 @@
 		
 		onLoad(options) {
 			uni.setNavigationBarTitle({
-				title:uni.getStorageSync('project_title')
+				title:uni.getStorageSync('channel_info').name
 			})
 			this.getAssistantInfo(options.assistant_id || 0);
 			this.getMsg()
@@ -179,7 +179,7 @@
 			
 			
 			submit() {
-				 let islogin = this.checkToken();
+				let islogin = this.checkToken();
 				if (!islogin) {
 					uni.navigateTo({
 						url: '/pages/my/login'

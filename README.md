@@ -22,7 +22,7 @@ PC端演示地址：https://wenan.zwzhk.com/
 
 ### 开源说明
 * 开源版：后端无加密、Uniapp端完全开源、PC端完全开源，集成模型只支持文心一言，**禁止去除小程序我的页面版权及版权跳转链接，开源版禁止商用，仅供学习交流，禁止倒卖。**
-* 升级版：后端无加密、Uniapp端完全开源、PC端完全开源，集成模型支持ChatGPT，文心一言，讯飞星火，清华 ChatGLM，通义千问，360智脑，Api2d等，可以去除版权商用。[点这里获取升级版](https://item.taobao.com/item.htm?spm=a21dvs.23580594.0.0.3c3a645eVrH74k&ft=t&id=754828856436)
+* 升级版：支持对话功能，后端无加密、Uniapp端完全开源、PC端完全开源，集成模型支持ChatGPT，文心一言，讯飞星火，清华 ChatGLM，通义千问，360智脑，Api2d等，可以去除版权商用。[点这里获取升级版](https://item.taobao.com/item.htm?spm=a21dvs.23580594.0.0.3c3a645eVrH74k&ft=t&id=754828856436)
 ### 运行环境
 ```
 nginx
