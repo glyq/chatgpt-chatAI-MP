@@ -9,7 +9,7 @@ Gitee地址(国内访问更快)：https://gitee.com/glyq_1/chatAI-MP
 
 小程序演示地址：
 
-![](image/mp.jpg?1)
+![](image/mp1.jpg?1)
 
 PC端演示地址：https://wenan.zwzhk.com/
 
